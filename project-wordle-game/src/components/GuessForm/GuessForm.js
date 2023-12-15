@@ -1,6 +1,6 @@
 import React from 'react';
 
-function GuessForm() {
+function GuessForm({ onSetGuessList }) {
   const [ guess, setGuess ] = React.useState('');
 
   function handleGuessInput(event) {
@@ -12,7 +12,9 @@ function GuessForm() {
       return;
     }
 
-    setGuess(nextGuess.toUpperCase());
+    nextGuess = nextGuess.toUpperCase();
+
+    setGuess(nextGuess);
   }
 
   function handleSubmitGuess(event) {
@@ -23,6 +25,17 @@ function GuessForm() {
     }
 
     console.log('handleSubmitGuess called: ', guess);
+    
+    onSetGuessList(prevGuessList => {
+      const updatedGuesslist = [ ...prevGuessList ];
+
+      updatedGuesslist.push({
+        id: window.crypto.randomUUID(),
+        guess
+      });
+
+      return updatedGuesslist;
+    });
 
     setGuess('');
   }
