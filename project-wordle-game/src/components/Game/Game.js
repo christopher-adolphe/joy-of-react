@@ -1,5 +1,7 @@
 import React from 'react';
 
+import GuessForm from '../GuessForm';
+
 import { sample } from '../../utils';
 import { WORDS } from '../../data';
 
@@ -9,7 +11,9 @@ const answer = sample(WORDS);
 console.info({ answer });
 
 function Game() {
-  return <>Put a game here!</>;
+  return <>
+    <GuessForm />
+  </>;
 }
 
 export default Game;
