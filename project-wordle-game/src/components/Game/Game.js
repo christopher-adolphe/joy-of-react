@@ -16,7 +16,7 @@ function Game() {
 
   return <>
     <GuessList items={ guessList } />
-    <GuessForm onSetGuessList={ setGuessList } />
+    <GuessForm answer={ answer } onSetGuessList={ setGuessList } />
   </>;
 }
 

@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
+import { checkGuess } from '../../game-helpers';
 
-function GuessForm({ onSetGuessList }) {
+function GuessForm({ answer, onSetGuessList }) {
   const [ guess, setGuess ] = React.useState('');
   const [ isDisabled, setIsDisabled ] = React.useState(false);
 
@@ -23,7 +24,7 @@ function GuessForm({ onSetGuessList }) {
   function handleSubmitGuess(event) {
     event.preventDefault();
 
-    if (guess === '') {
+    if (guess === '' || guess.length !== 5) {
       return;
     }
 
@@ -32,9 +33,11 @@ function GuessForm({ onSetGuessList }) {
     onSetGuessList(prevGuessList => {
       const updatedGuesslist = [ ...prevGuessList ];
 
+      const validatedGuess = checkGuess(guess, answer);
+
       updatedGuesslist.push({
         id: window.crypto.randomUUID(),
-        guess
+        validatedGuess
       });
 
       if (updatedGuesslist.length === NUM_OF_GUESSES_ALLOWED) {
