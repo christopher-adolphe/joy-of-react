@@ -3,9 +3,8 @@ import React from 'react';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 import { checkGuess } from '../../game-helpers';
 
-function GuessForm({ answer, onSetGuessList }) {
+function GuessForm({ answer, isGameOver, onSetGame, onSetGuessList }) {
   const [ guess, setGuess ] = React.useState('');
-  const [ isDisabled, setIsDisabled ] = React.useState(false);
 
   function handleGuessInput(event) {
     let nextGuess = '';
@@ -27,21 +26,24 @@ function GuessForm({ answer, onSetGuessList }) {
     if (guess === '' || guess.length !== 5) {
       return;
     }
-
-    console.log('handleSubmitGuess called: ', guess);
     
     onSetGuessList(prevGuessList => {
       const updatedGuesslist = [ ...prevGuessList ];
 
       const validatedGuess = checkGuess(guess, answer);
+      const isGuessCorrect = guess === answer;
 
       updatedGuesslist.push({
         id: window.crypto.randomUUID(),
         validatedGuess
       });
 
-      if (updatedGuesslist.length === NUM_OF_GUESSES_ALLOWED) {
-        setIsDisabled(true);
+      if (updatedGuesslist.length <= NUM_OF_GUESSES_ALLOWED && isGuessCorrect) {
+        onSetGame({ isGameOver: true, status: 'win' });
+      }
+
+      if (updatedGuesslist.length === NUM_OF_GUESSES_ALLOWED && !isGuessCorrect) {
+        onSetGame({ isGameOver: true, status: 'lose' });
       }
 
       return updatedGuesslist;
@@ -61,7 +63,7 @@ function GuessForm({ answer, onSetGuessList }) {
         type="text"
         value={ guess }
         onInput={ handleGuessInput }
-        disabled={ isDisabled }
+        disabled={ isGameOver }
       />
     </form>
   );
