@@ -195,6 +195,24 @@ h1 {
   border-radius: 4px;
 }
 
+.visual-keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.visual-keyboard__key {
+  display: grid;
+  place-items: center;
+  width: 10%;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  background-color: var(--color-gray-900);
+  font-weight: bold;
+}
+
 .visually-hidden {
   position: absolute;
   overflow: hidden;

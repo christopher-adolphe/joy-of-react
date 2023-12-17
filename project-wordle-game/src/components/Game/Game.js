@@ -3,6 +3,7 @@ import React from 'react';
 import GuessForm from '../GuessForm';
 import GuessList from '../GuessList';
 import GameOverBanner from '../GameOverBanner';
+import VisualKeyboard from '../VisualKeyboard';
 
 import { sample } from '../../utils';
 import { WORDS } from '../../data';
@@ -54,8 +55,10 @@ function Game() {
       onSetGuessList={ setGuessList }
     />
 
+    <VisualKeyboard />
+
     {
-      game.isGameOver ? (
+      game.isGameOver && (
         <GameOverBanner variant={ bannerConfigs.get(game.status).variant }>
           {
             bannerConfigs.get(game.status).content
@@ -63,7 +66,7 @@ function Game() {
 
           <button type='button' className='banner-btn' onClick={ handleRestartGame }>Restart Game</button>
         </GameOverBanner>
-      ) : null
+      )
     }
   </>;
 }
