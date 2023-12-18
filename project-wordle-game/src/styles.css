@@ -213,6 +213,22 @@ h1 {
   font-weight: bold;
 }
 
+.visual-keyboard__key.correct {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: white;
+}
+.visual-keyboard__key.incorrect {
+  background: var(--color-gray-300);
+  border-color: var(--color-gray-300);
+  color: white;
+}
+.visual-keyboard__key.misplaced {
+  background: var(--color-warning);
+  border-color: var(--color-warning);
+  color: white;
+}
+
 .visually-hidden {
   position: absolute;
   overflow: hidden;

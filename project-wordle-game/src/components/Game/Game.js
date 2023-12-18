@@ -55,7 +55,7 @@ function Game() {
       onSetGuessList={ setGuessList }
     />
 
-    <VisualKeyboard />
+    <VisualKeyboard items={ guessList } />
 
     {
       game.isGameOver && (
