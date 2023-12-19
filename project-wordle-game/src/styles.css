@@ -84,7 +84,6 @@ h1 {
 }
 
 .guess-results {
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -161,6 +160,10 @@ h1 {
   outline-offset: 4px;
 }
 
+.guess-input-wrapper input:disabled {
+  cursor: not-allowed;
+}
+
 .banner {
   position: fixed;
   left: 0;
@@ -182,6 +185,47 @@ h1 {
 }
 .sad.banner {
   background: var(--color-error);
+  color: white;
+}
+
+.banner-btn {
+  border: 2px solid var(--color-gray-900);
+  margin-top: 24px;
+  padding: 12px 24px;
+  border-radius: 4px;
+}
+
+.visual-keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.visual-keyboard__key {
+  display: grid;
+  place-items: center;
+  width: 10%;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  background-color: var(--color-gray-900);
+  font-weight: bold;
+}
+
+.visual-keyboard__key.correct {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: white;
+}
+.visual-keyboard__key.incorrect {
+  background: var(--color-gray-300);
+  border-color: var(--color-gray-300);
+  color: white;
+}
+.visual-keyboard__key.misplaced {
+  background: var(--color-warning);
+  border-color: var(--color-warning);
   color: white;
 }
 
