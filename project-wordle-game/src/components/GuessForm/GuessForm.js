@@ -42,7 +42,7 @@ function GuessForm({ answer, isGameOver, onSetGame, onSetGuessList }) {
         onSetGame({ isGameOver: true, status: 'win' });
       }
 
-      if (updatedGuesslist.length === NUM_OF_GUESSES_ALLOWED && !isGuessCorrect) {
+      if (updatedGuesslist.length === NUM_OF_GUESSES_ALLOWED) {
         onSetGame({ isGameOver: true, status: 'lose' });
       }
 
