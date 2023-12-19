@@ -11,7 +11,7 @@ function GuessForm({ answer, isGameOver, onSetGame, onSetGuessList }) {
 
     nextGuess = event.target.value;
 
-    if (nextGuess.length > 5) {
+    if (nextGuess.length > 5  || !isNaN(parseInt(nextGuess))) {
       return;
     }
 
