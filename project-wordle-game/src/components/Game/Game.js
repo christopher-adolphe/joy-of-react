@@ -27,7 +27,7 @@ function Game() {
       variant: 'happy',
       content: (
         <p>
-          <strong>Congratulations!</strong> Got it in <strong>{ `${guessList.length} ${guessList.length > 1 ? 'guesses' : 'guess'}` }</strong>.
+          <strong>Congratulations!</strong> Got it in <strong>{ `${guessList.length > 1 ? `${guessList.length} guesses` : '1 guess'}` }</strong>.
         </p>
       )
     } ],
