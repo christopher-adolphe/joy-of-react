@@ -7,6 +7,8 @@ import VisualKeyboard from '../VisualKeyboard';
 
 import { sample } from '../../utils';
 import { WORDS } from '../../data';
+import { checkGuess } from '../../game-helpers';
+import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 
 // Pick a random word on every pageload.
 // const answer = sample(WORDS);
@@ -37,6 +39,28 @@ function Game() {
     } ]
   ]);
 
+  function handleSubmitGuess(tentativeGuess) {
+    const updatedGuesslist = [ ...guessList ];
+
+    const validatedGuess = checkGuess(tentativeGuess, answer);
+    const isGuessCorrect = tentativeGuess === answer;
+
+    updatedGuesslist.push({
+      id: window.crypto.randomUUID(),
+      validatedGuess
+    });
+
+    if (updatedGuesslist.length <= NUM_OF_GUESSES_ALLOWED && isGuessCorrect) {
+      setGame({ isGameOver: true, status: 'win' });
+    }
+
+    if (updatedGuesslist.length === NUM_OF_GUESSES_ALLOWED) {
+      setGame({ isGameOver: true, status: 'lose' });
+    }
+
+    setGuessList(updatedGuesslist);
+  }
+
   function handleRestartGame() {
     const nextAnswer = sample(WORDS);
 
@@ -49,10 +73,8 @@ function Game() {
     <GuessList items={ guessList } />
 
     <GuessForm
-      answer={ answer }
       isGameOver={ game.isGameOver }
-      onSetGame={ setGame }
-      onSetGuessList={ setGuessList }
+      onSubmitGuess={ handleSubmitGuess }
     />
 
     <VisualKeyboard items={ guessList } />

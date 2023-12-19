@@ -1,9 +1,6 @@
 import React from 'react';
 
-import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
-import { checkGuess } from '../../game-helpers';
-
-function GuessForm({ answer, isGameOver, onSetGame, onSetGuessList }) {
+function GuessForm({ isGameOver, onSubmitGuess }) {
   const [ guess, setGuess ] = React.useState('');
 
   function handleGuessInput(event) {
@@ -27,27 +24,7 @@ function GuessForm({ answer, isGameOver, onSetGame, onSetGuessList }) {
       return;
     }
     
-    onSetGuessList(prevGuessList => {
-      const updatedGuesslist = [ ...prevGuessList ];
-
-      const validatedGuess = checkGuess(guess, answer);
-      const isGuessCorrect = guess === answer;
-
-      updatedGuesslist.push({
-        id: window.crypto.randomUUID(),
-        validatedGuess
-      });
-
-      if (updatedGuesslist.length <= NUM_OF_GUESSES_ALLOWED && isGuessCorrect) {
-        onSetGame({ isGameOver: true, status: 'win' });
-      }
-
-      if (updatedGuesslist.length === NUM_OF_GUESSES_ALLOWED) {
-        onSetGame({ isGameOver: true, status: 'lose' });
-      }
-
-      return updatedGuesslist;
-    });
+    onSubmitGuess(guess);
 
     setGuess('');
   }
