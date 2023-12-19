@@ -9,7 +9,7 @@ function GuessForm({ answer, isGameOver, onSetGame, onSetGuessList }) {
   function handleGuessInput(event) {
     let nextGuess = '';
 
-    nextGuess = event.target.value;
+    nextGuess = event.target.value.trim();
 
     if (nextGuess.length > 5  || !isNaN(parseInt(nextGuess))) {
       return;
@@ -64,6 +64,9 @@ function GuessForm({ answer, isGameOver, onSetGame, onSetGuessList }) {
         value={ guess }
         onInput={ handleGuessInput }
         disabled={ isGameOver }
+        required
+        minLength={ 5 }
+        maxLength={ 5 }
       />
     </form>
   );
