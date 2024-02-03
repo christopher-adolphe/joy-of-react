@@ -7,12 +7,30 @@ import styles from './ToastPlayground.module.css';
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
+  const [ message, setMessage ] = React.useState('');
+  const [ variant, setVariant ] = React.useState('');
+
+  function handleMessageChange(value) {
+    if (!value || value.trim() === '') {
+      return;
+    }
+
+    setMessage(value);
+  }
+
+  function handleVariantChange(value) {
+    setVariant(value);
+  }
+
   return (
     <div className={styles.wrapper}>
       <header>
         <img alt="Cute toast mascot" src="/toast.png" />
         <h1>Toast Playground</h1>
       </header>
+
+      <p>{ message }</p>
+      <p>{ variant }</p>
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -24,7 +42,12 @@ function ToastPlayground() {
             Message
           </label>
           <div className={styles.inputWrapper}>
-            <textarea id="message" className={styles.messageInput} />
+            <textarea
+              id="message"
+              className={styles.messageInput}
+              value={ message }
+              onChange={ (event) => handleMessageChange(event.target.value) }
+            />
           </div>
         </div>
 
@@ -33,17 +56,18 @@ function ToastPlayground() {
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <label htmlFor="variant-notice">
-              <input
-                id="variant-notice"
-                type="radio"
-                name="variant"
-                value="notice"
-              />
-              notice
-            </label>
-
-            {/* TODO Other Variant radio buttons here */}
+            { VARIANT_OPTIONS.map(option => (
+              <label htmlFor={ `variant-${option}`} key={ option }>
+                <input
+                  id={ `variant-${option}`}
+                  type="radio"
+                  name="variant"
+                  value={ option }
+                  onChange={ (event) => handleVariantChange(event.target.value) }
+                />
+                { option }
+              </label>
+            )) }
           </div>
         </div>
 
