@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from '../Button';
+import Toast from '../Toast';
 
 import styles from './ToastPlayground.module.css';
 
@@ -9,6 +10,7 @@ const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 function ToastPlayground() {
   const [ message, setMessage ] = React.useState('');
   const [ variant, setVariant ] = React.useState('');
+  const [ isVisible, setIsVisible ] = React.useState(false);
 
   function handleMessageChange(value) {
     if (!value || value.trim() === '') {
@@ -22,6 +24,18 @@ function ToastPlayground() {
     setVariant(value);
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    setIsVisible(true);
+  }
+
+  function handleToggleToast() {
+    const nextIsVisible = !isVisible;
+
+    setIsVisible(nextIsVisible);
+  }
+
   return (
     <div className={styles.wrapper}>
       <header>
@@ -29,8 +43,13 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <p>{ message }</p>
-      <p>{ variant }</p>
+      { isVisible && (
+        <Toast
+          message={ message }
+          variant={ variant }
+          handleToggleToast={ handleToggleToast }
+        />
+      ) }
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -63,6 +82,7 @@ function ToastPlayground() {
                   type="radio"
                   name="variant"
                   value={ option }
+                  checked={ option === variant }
                   onChange={ (event) => handleVariantChange(event.target.value) }
                 />
                 { option }
@@ -76,7 +96,7 @@ function ToastPlayground() {
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <Button>Pop Toast!</Button>
+            <Button type="submit" onClick={ handleSubmit }>Pop Toast!</Button>
           </div>
         </div>
       </div>
