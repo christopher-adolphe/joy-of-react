@@ -7,6 +7,8 @@ import {
   X,
 } from 'react-feather';
 
+import { ToastContext } from '../ToastProvider';
+
 import VisuallyHidden from '../VisuallyHidden';
 
 import styles from './Toast.module.css';
@@ -18,7 +20,9 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ id, variant, handleToggleToast, children }) {
+function Toast({ id, variant, children }) {
+  const { handleToggleToast } = React.useContext(ToastContext);
+
   const ToastIcon = ICONS_BY_VARIANT[variant];
 
   return (
