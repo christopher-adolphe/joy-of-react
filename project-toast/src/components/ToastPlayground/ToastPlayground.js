@@ -13,7 +13,6 @@ function ToastPlayground() {
   const { handleCreateToast } = React.useContext(ToastContext);
   const [ message, setMessage ] = React.useState('');
   const [ variant, setVariant ] = React.useState('notice');
-  // const [ toastList, setToastList ] = React.useState([]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -22,26 +21,11 @@ function ToastPlayground() {
       return;
     }
 
-    // const nextToast = {
-    //   id: window.crypto.randomUUID(),
-    //   message,
-    //   variant,
-    // };
-    // const nextToastList = [ ...toastList, nextToast ];
-
-    // setToastList(nextToastList);
-
     handleCreateToast(message, variant);
 
     setMessage('');
     setVariant('notice');
   }
-
-  // function handleToggleToast(id) {
-  //   const nextToastList = toastList.filter(toast => toast.id !== id);
-
-  //   setToastList(nextToastList);
-  // }
 
   return (
     <div className={styles.wrapper}>
