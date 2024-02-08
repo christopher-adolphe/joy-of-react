@@ -31,7 +31,7 @@ function Toast({ id, variant, children }) {
         <ToastIcon size={24} />
       </div>
       <p className={styles.content}>
-        <VisuallyHidden>{ variant }</VisuallyHidden>{ children }
+        <VisuallyHidden>{ variant } -</VisuallyHidden>{ children }
       </p>
       <button
         aria-label="Dismiss message"
