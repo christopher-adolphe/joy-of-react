@@ -24,7 +24,7 @@ function ToastPlayground() {
     handleCreateToast(message, variant);
 
     setMessage('');
-    setVariant('notice');
+    setVariant(VARIANT_OPTIONS[0]);
   }
 
   return (
