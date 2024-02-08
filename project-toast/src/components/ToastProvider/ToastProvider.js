@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 export const ToastContext = React.createContext({
   toastList: [],
   handleCreateToast: () => {},
-  handleToggleToast: () => {},
+  handleDiscardToast: (id) => {},
+  handleDismissAllToasts: () => {},
 });
 
 ToastContext.displayName = 'ToastContext';
@@ -22,17 +23,33 @@ function ToastProvider({ children }) {
     setToastList(nextToastList);
   }
 
-  function handleToggleToast(id) {
+  function handleDiscardToast(id) {
     const nextToastList = toastList.filter(toast => toast.id !== id);
 
     setToastList(nextToastList);
   }
 
+  const handleDismissAllToasts = useCallback((event) => {
+    if (event.key === 'q') {
+      console.log('handleDismissAllToasts called: ', event.key);
+      setToastList([]);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    window.addEventListener('keydown', handleDismissAllToasts);
+
+    return () => {
+      window.removeEventListener('keydown', handleDismissAllToasts);
+    }
+  }, [handleDismissAllToasts]);
+
   const toastContextValue = {
     toastList,
     handleCreateToast,
-    handleToggleToast,
-  }
+    handleDiscardToast,
+    handleDismissAllToasts,
+  };
 
   return (
     <ToastContext.Provider value={ toastContextValue }>
