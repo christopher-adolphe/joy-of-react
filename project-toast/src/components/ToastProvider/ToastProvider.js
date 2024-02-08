@@ -30,8 +30,7 @@ function ToastProvider({ children }) {
   }
 
   const handleDismissAllToasts = useCallback((event) => {
-    if (event.key === 'q') {
-      console.log('handleDismissAllToasts called: ', event.key);
+    if (event.key === 'Escape') {
       setToastList([]);
     }
   }, []);
