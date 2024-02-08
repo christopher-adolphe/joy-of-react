@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 
 import { ToastContext } from '../ToastProvider';
 
@@ -8,7 +9,7 @@ import styles from './ToastShelf.module.css';
 function ToastShelf() {
   const { toastList } = React.useContext(ToastContext);
 
-  return (
+  return createPortal(
     <>
     {
       toastList.length > 0 && (
@@ -23,7 +24,8 @@ function ToastShelf() {
         </ol>
       )
     }
-    </>
+    </>,
+    document.querySelector('#toasts-root')
   );
 }
 
