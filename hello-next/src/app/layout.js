@@ -1,5 +1,6 @@
 import React from 'react';
 
+import StyledComponentsRegistry from '../components/StyledComponentsRegistry';
 import './styles.css';
 
 function RootLayout({ children }) {
@@ -8,7 +9,9 @@ function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {children}
+        <StyledComponentsRegistry>
+          {children}
+        </StyledComponentsRegistry>
 
         <footer>
           Page rendered on { timestamp }
