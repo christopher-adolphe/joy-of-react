@@ -3,6 +3,7 @@ import { Kanit } from 'next/font/google';
 
 import SiteHeader from './SiteHeader';
 import SiteFooter from './SiteFooter';
+
 import './styles.css';
 
 const primaryFont = Kanit({
@@ -20,7 +21,9 @@ function WebBaseLayout({ children }) {
       }}
     >
       <SiteHeader />
+
       <main>{children}</main>
+
       <SiteFooter />
     </div>
   );
