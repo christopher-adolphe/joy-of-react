@@ -7,9 +7,8 @@ import BlogSummaryCard from '@/components/BlogSummaryCard';
 import styles from './homepage.module.css';
 
 async function Home() {
-  const posts = await getBlogPostList();
+  const blogPosts = await getBlogPostList();
 
-  console.log('Home posts: ', posts); 
   return (
     <div className={styles.wrapper}>
       <h1 className={styles.mainHeading}>
@@ -17,7 +16,7 @@ async function Home() {
       </h1>
 
       {
-        posts.map(({ slug, title, abstract, publishedOn }) => (
+        blogPosts.map(({ slug, title, abstract, publishedOn }) => (
           <BlogSummaryCard
             key={ slug }
             slug={ slug }
