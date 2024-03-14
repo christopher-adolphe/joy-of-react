@@ -7,6 +7,7 @@ import { loadBlogPost } from '@/helpers/file-helpers';
 import BlogHero from '@/components/BlogHero';
 import CodeSnippet from '@/components/CodeSnippet';
 const DivisionGroupsDemo  = dynamic(() => import('@/components/DivisionGroupsDemo'));
+const CircularColorsDemo = dynamic(() => import('@/components/CircularColorsDemo'));
 
 import styles from './postSlug.module.css';
 
@@ -34,6 +35,7 @@ async function BlogPost({ params }) {
           components={ {
             pre: CodeSnippet,
             DivisionGroupsDemo,
+            CircularColorsDemo,
           } }
         />
       </div>

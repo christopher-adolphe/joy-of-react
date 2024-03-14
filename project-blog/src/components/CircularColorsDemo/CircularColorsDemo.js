@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import clsx from 'clsx';
 import {
@@ -19,18 +21,51 @@ const COLORS = [
 
 function CircularColorsDemo() {
   // TODO: This value should increase by 1 every second:
-  const timeElapsed = 0;
+  const [ timeElapsed, setTimeElapsed ] = React.useState(0);
+  const [ cycleStatus, setCycleStatus ] = React.useState('IDLE');
 
   // TODO: This value should cycle through the colors in the
   // COLORS array:
-  const selectedColor = COLORS[0];
+  const selectedColor = COLORS[timeElapsed % COLORS.length];
+
+  React.useEffect(() => {
+    let intervalId;
+
+    if (cycleStatus === 'STARTED') {
+      intervalId = setInterval(() => {
+        const nextTimeElapsed = timeElapsed + 1;
+  
+        setTimeElapsed(nextTimeElapsed);
+      }, 1000);
+    }
+
+    if (cycleStatus === 'IDLE') {
+      clearInterval(intervalId);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  });
+
+  function handleStartCycle() {
+    setCycleStatus('STARTED');
+  }
+
+  function handlePauseCycle() {
+    setCycleStatus('PAUSED');
+  }
+
+  function handleResetCycle() {
+    setCycleStatus('IDLE');
+    setTimeElapsed(0);
+  }
 
   return (
     <Card as="section" className={styles.wrapper}>
       <ul className={styles.colorsWrapper}>
         {COLORS.map((color, index) => {
-          const isSelected =
-            color.value === selectedColor.value;
+          const isSelected = color.value === selectedColor.value;
 
           return (
             <li
@@ -69,11 +104,21 @@ function CircularColorsDemo() {
           <dd>{timeElapsed}</dd>
         </dl>
         <div className={styles.actions}>
-          <button>
-            <Play />
-            <VisuallyHidden>Play</VisuallyHidden>
-          </button>
-          <button>
+          {
+            cycleStatus === 'IDLE' || cycleStatus === 'PAUSED' ? (
+              <button onClick={ handleStartCycle }>
+                <Play />
+                <VisuallyHidden>Play</VisuallyHidden>
+              </button>
+            ) : (
+              <button onClick={ handlePauseCycle }>
+                <Pause />
+                <VisuallyHidden>Pause</VisuallyHidden>
+              </button>
+            )
+          }
+
+          <button onClick={ handleResetCycle }>
             <RotateCcw />
             <VisuallyHidden>Reset</VisuallyHidden>
           </button>
