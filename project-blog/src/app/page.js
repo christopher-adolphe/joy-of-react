@@ -22,13 +22,22 @@ async function Home() {
       </h1>
 
       {
-        blogPosts.map(({ slug, title, abstract, publishedOn }) => (
+        // blogPosts.map(({ slug, title, abstract, publishedOn }) => (
+        //   <BlogSummaryCard
+        //     key={ slug }
+        //     slug={ slug }
+        //     title={ title }
+        //     abstract={ abstract }
+        //     publishedOn={ publishedOn }
+        //   />
+        // ))
+
+        // Using the rest operator to collect delegated prop
+        blogPosts.map(({ slug, ...delegated }) => (
           <BlogSummaryCard
             key={ slug }
             slug={ slug }
-            title={ title }
-            abstract={ abstract }
-            publishedOn={ publishedOn }
+            { ...delegated }
           />
         ))
       }

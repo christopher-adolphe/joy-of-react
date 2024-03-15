@@ -27,7 +27,7 @@ export async function getBlogPostList() {
   );
 }
 
-export const loadBlogPost = React.cache(async (slug) => {
+export const loadBlogPost = React.cache(async function loadBlogPost(slug) {
   try {
     const rawContent = await readFile(
       `/content/${slug}.mdx`

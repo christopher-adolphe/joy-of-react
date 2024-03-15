@@ -21,17 +21,17 @@ export async function generateMetadata({ params }) {
 }
 
 async function BlogPost({ params }) {
-  const blogPost = await loadBlogPost(params.postSlug);
+  const { frontmatter, content } = await loadBlogPost(params.postSlug);
 
   return (
     <article className={styles.wrapper}>
       <BlogHero
-        title={ blogPost.frontmatter.title }
-        publishedOn={ blogPost.frontmatter.publishedOn }
+        title={frontmatter.title }
+        publishedOn={frontmatter.publishedOn }
       />
       <div className={styles.page}>
         <MDXRemote
-          source={ blogPost.content }
+          source={content}
           components={ {
             pre: CodeSnippet,
             DivisionGroupsDemo,
