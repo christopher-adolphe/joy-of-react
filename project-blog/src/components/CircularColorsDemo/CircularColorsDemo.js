@@ -2,6 +2,7 @@
 
 import React from 'react';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import {
   Play,
   Pause,
@@ -20,6 +21,7 @@ const COLORS = [
 ];
 
 function CircularColorsDemo() {
+  const id = React.useId();
   // TODO: This value should increase by 1 every second:
   const [ timeElapsed, setTimeElapsed ] = React.useState(0);
   const [ cycleStatus, setCycleStatus ] = React.useState('IDLE');
@@ -29,31 +31,26 @@ function CircularColorsDemo() {
   const selectedColor = COLORS[timeElapsed % COLORS.length];
 
   React.useEffect(() => {
-    let intervalId;
-
-    if (cycleStatus === 'STARTED') {
-      intervalId = setInterval(() => {
-        const nextTimeElapsed = timeElapsed + 1;
-  
-        setTimeElapsed(nextTimeElapsed);
-      }, 1000);
+    if (cycleStatus !== 'STARTED') {
+      return;
     }
 
-    if (cycleStatus === 'IDLE') {
-      clearInterval(intervalId);
-    }
+    const intervalId = setInterval(() => {  
+      setTimeElapsed((currentTimeElapsed) => currentTimeElapsed + 1);
+    }, 1000);
 
     return () => {
       clearInterval(intervalId);
     };
-  });
+  }, [cycleStatus]);
 
-  function handleStartCycle() {
-    setCycleStatus('STARTED');
-  }
-
-  function handlePauseCycle() {
-    setCycleStatus('PAUSED');
+  function handleToggleCycle() {
+    if (cycleStatus === 'STARTED') {
+      setCycleStatus('IDLE');
+    } else {
+      setCycleStatus('STARTED');
+      setTimeElapsed(timeElapsed + 1);
+    }
   }
 
   function handleResetCycle() {
@@ -73,7 +70,8 @@ function CircularColorsDemo() {
               key={index}
             >
               {isSelected && (
-                <div
+                <motion.div
+                  layoutId={ `${id}-selected-color-outline` }
                   className={
                     styles.selectedColorOutline
                   }
@@ -104,19 +102,10 @@ function CircularColorsDemo() {
           <dd>{timeElapsed}</dd>
         </dl>
         <div className={styles.actions}>
-          {
-            cycleStatus === 'IDLE' || cycleStatus === 'PAUSED' ? (
-              <button onClick={ handleStartCycle }>
-                <Play />
-                <VisuallyHidden>Play</VisuallyHidden>
-              </button>
-            ) : (
-              <button onClick={ handlePauseCycle }>
-                <Pause />
-                <VisuallyHidden>Pause</VisuallyHidden>
-              </button>
-            )
-          }
+          <button onClick={ handleToggleCycle }>
+            { cycleStatus === 'IDLE' ? <Play /> : <Pause /> }
+            <VisuallyHidden>{ cycleStatus === 'IDLE' ? 'Play' : 'Pause' }</VisuallyHidden>
+          </button>
 
           <button onClick={ handleResetCycle }>
             <RotateCcw />
