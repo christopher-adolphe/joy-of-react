@@ -1,13 +1,12 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 
 import { loadBlogPost } from '@/helpers/file-helpers';
 
 import BlogHero from '@/components/BlogHero';
 import CodeSnippet from '@/components/CodeSnippet';
-const DivisionGroupsDemo  = dynamic(() => import('@/components/DivisionGroupsDemo'));
-const CircularColorsDemo = dynamic(() => import('@/components/CircularColorsDemo'));
+import DivisionGroupsDemo  from '@/components/DivisionGroupsDemo';
+import CircularColorsDemo from '@/components/CircularColorsDemo';
 
 import styles from './postSlug.module.css';
 
