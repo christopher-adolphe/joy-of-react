@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { Rss, Sun, Moon } from 'react-feather';
 import Cookie from 'js-cookie';
 
-import { LIGHT_TOKENS, DARK_TOKENS } from '@/constants';
+import { COLOR_THEME_COOKIE_KEY, LIGHT_TOKENS, DARK_TOKENS } from '@/constants';
 
 import Logo from '@/components/Logo';
 import VisuallyHidden from '@/components/VisuallyHidden';
@@ -22,7 +22,7 @@ function Header({ initialTheme, className, ...delegated }) {
 
     setTheme(nextTheme);
 
-    Cookie.set('color-theme', nextTheme, { expires: 1000 });
+    Cookie.set(COLOR_THEME_COOKIE_KEY, nextTheme, { expires: 1000 });
 
     root.setAttribute('data-color-theme', nextTheme);
     Object.entries(themeColors).forEach(([key, value]) => {

@@ -6,7 +6,7 @@ import {
 import clsx from 'clsx';
 import { cookies } from 'next/headers';
 
-import { LIGHT_TOKENS, DARK_TOKENS } from '@/constants';
+import { COLOR_THEME_COOKIE_KEY, LIGHT_TOKENS, DARK_TOKENS } from '@/constants';
 
 import RespectMotionPreferences from '@/components/RespectMotionPreferences';
 import Header from '@/components/Header';
@@ -29,7 +29,7 @@ const monoFont = Spline_Sans_Mono({
 
 function RootLayout({ children }) {
   // TODO: Dynamic theme depending on user preference
-  const savedTheme = cookies().get('color-theme');
+  const savedTheme = cookies().get(COLOR_THEME_COOKIE_KEY);
   const theme = savedTheme?.value || 'light';
 
   return (
